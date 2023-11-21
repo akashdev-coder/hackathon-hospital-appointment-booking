@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+        }
+
+        #confirmationSection {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+    <title>Hospital Ticket Booking</title>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="mb-4">Hospital Ticket Booking System</h2>
+
+    <!-- Service Selection -->
+    <div class="mb-4">
+        <h4>Select Service:</h4>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="service" id="doctor" value="doctor" checked>
+            <label class="form-check-label" for="doctor">
+                Doctor Appointment
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="service" id="test" value="test">
+            <label class="form-check-label" for="test">
+                Diagnostic Test
+            </label>
+        </div>
+        <!-- Add more service options as needed -->
+    </div>
+
+    <!-- Date and Time Selection -->
+    <div class="mb-4">
+        <h4>Select Date and Time:</h4>
+        <input type="date" id="appointmentDate" class="form-control mb-2" required>
+        <select id="appointmentTime" class="form-control" required>
+            <option value="9:00 AM">9:00 AM</option>
+            <option value="10:00 AM">10:00 AM</option>
+            <!-- Add more time slots as needed -->
+        </select>
+        <small id="availabilityMessage" class="form-text text-muted"></small>
+    </div>
+
+    <!-- User Information -->
+    <div>
+        <h4>Your Information:</h4>
+        <form id="appointmentForm">
+            <div class="form-group">
+                <label for="fullName">Full Name:</label>
+                <input type="text" class="form-control" id="fullName" required>
+            </div>
+            <div class="form-group">
+                <label for="contactNumber">Contact Number:</label>
+                <input type="tel" class="form-control" id="contactNumber" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Book Appointment</button>
+        </form>
+    </div>
+
+    <!-- Confirmation Section (Hidden by default) -->
+    <div id="confirmationSection">
+        <h3>Appointment Confirmation</h3>
+        <p id="confirmationMessage"></p>
+        <p><a href="#" id="sendEmail">Send Email</a></p>
+        <p><a href="#" id="sendWhatsApp">Send WhatsApp Message</a></p>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // Simulate real-time availability
+    document.getElementById('appointmentDate').addEventListener('change', function () {
+        const selectedDate = new Date(this.value);
+        const today = new Date();
+        const availabilityMessage = document.getElementById('availabilityMessage');
+
+        if (selectedDate < today) {
+            availabilityMessage.innerText = 'Please select a future date.';
+            availabilityMessage.style.color = 'red';
+        } else {
+            availabilityMessage.innerText = 'Date is available!';
+            availabilityMessage.style.color = 'green';
+        }
+    });
+
+    // Form submission
+// Form submission
+document.getElementById('appointmentForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        // Generate a random ticket number
+        const ticketNumber = generateTicketNumber();
+
+        // Gather user input
+        const service = document.querySelector('input[name="service"]:checked').value;
+        const date = document.getElementById('appointmentDate').value;
+        const time = document.getElementById('appointmentTime').value;
+        const fullName = document.getElementById('fullName').value;
+        const contactNumber = document.getElementById('contactNumber').value;
+
+        // Display confirmation message with ticket number
+        const confirmationMessage = `Ticket Number: ${ticketNumber}\nService: ${service}\nDate: ${date}\nTime: ${time}\nName: ${fullName}\nContact: ${contactNumber}`;
+        document.getElementById('confirmationMessage').innerText = confirmationMessage;
+
+        // Show the confirmation section
+        document.getElementById('appointmentForm').style.display = 'none';
+        document.getElementById('confirmationSection').style.display = 'block';
+    });
+
+    // Send email
+    document.getElementById('sendEmail').addEventListener('click', function () {
+        const subject = encodeURIComponent('Appointment Confirmation');
+        const body = encodeURIComponent(document.getElementById('confirmationMessage').innerText);
+        window.location.href = `mailto:recipient@example.com?subject=${subject}&body=${body}`;
+    });
+
+    // Send WhatsApp message
+    document.getElementById('sendWhatsApp').addEventListener('click', function () {
+        const phoneNumber = '59249093'; // Replace with the recipient's phone number
+        const message = encodeURIComponent(document.getElementById('confirmationMessage').innerText);
+        window.location.href = `https://wa.me/${phoneNumber}?text=${message}`;
+    });
+
+    // Function to generate a random ticket number
+    function generateTicketNumber() {
+        return Math.floor(Math.random() * 1000000) + 1; // Replace with a more robust ticket number generation logic if needed
+    }
+
+
+</script>
+
+</body>
+</html>
