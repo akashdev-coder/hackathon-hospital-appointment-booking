@@ -3,9 +3,9 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     const slideContent = [
-      { image: "/assets/img/slide1.jpg" },
-      { image: "/assets/img/slide2.jpg" },
-      { image: "/assets/img/slide3.jpg" },
+      { image: "assets/img/slide1.jpg" },
+      { image: "assets/img/slide2.jpg" },
+      { image: "assets/img/slide3.jpg" },
       // Add more slides as needed
     ];
   
