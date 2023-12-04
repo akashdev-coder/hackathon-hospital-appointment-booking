@@ -392,7 +392,7 @@ footer .buttonAppointement {
 /* Our services */
 
 .banner {
-  background: url(/assets/img/slide4.jpg);
+  background: url(assets/img/slide4.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -426,7 +426,7 @@ img.doctorImg {
 
 
 .backImg {
-  background: url(/assets/img/back-bg.jpg);
+  background: url(assets/img/back-bg.jpg);
   background-size: cover;
   background-attachment: fixed;
   background-position: center center;
